@@ -167,13 +167,3 @@
     Menambah Data Dokumen Perpustakaan, isi form diatas untuk menambahkan data dokumen. 
   </div><!-- box-footer -->
 </div><!-- /.box -->
-
-<script>
-$(document).ready(function() {
-    $('.js-example-basic-multiple').select2({
-        theme: "classic",
-        placeholder: "Pilih hak akses petugas",
-        allowClear: true
-    });
-});
-</script>

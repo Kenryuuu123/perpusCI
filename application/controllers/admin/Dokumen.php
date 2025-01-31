@@ -45,20 +45,34 @@ class dokumen extends MY_Controller {
 	//hapus buku
 	public function hapus_dokumen()
 	{
-		$data['log']=$this->db->get_where('tb_petugas',array('id_petugas' => $this->session->userdata('username')))->result();
+		$data['log'] = $this->db->get_where('tb_petugas', array('id_petugas' => $this->session->userdata('username')))->result();
 		$cek = $this->session->userdata('logged_in');
 		$stts = $this->session->userdata('stts');
-		if(!empty($cek) && $stts=='admin')
-		{
-			$id_dokumen = $this->input->get('id_dokumen', TRUE);			
-			$hapus = array('id_dokumen' => $id_dokumen);
+		
+		if (!empty($cek) && $stts == 'admin') {
+			$id_dokumen = $this->input->get('id_dokumen', TRUE);
 			
-			$this->Dokumen_model->deleteData('tb_dokumen',$hapus);
-			header('location:'.base_url().'admin/Dokumen/dokumen');
-		}
-		else
-		{
-			header('location:'.base_url().'web/log');
+			// Ambil detail dokumen untuk mendapatkan nama berkas
+			$dokumen = $this->Dokumen_model->get_detaill('tb_dokumen', 'id_dokumen', $id_dokumen);
+			
+			if ($dokumen && !empty($dokumen->berkas)) {
+				// Hapus berkas dari folder
+				$file_path = './uploads/upload/' . $dokumen->berkas;
+				if (file_exists($file_path)) {
+					unlink($file_path);
+				}
+			}
+			
+			// Hapus data dari database
+			$hapus = array('id_dokumen' => $id_dokumen);
+			$this->Dokumen_model->deleteData('tb_dokumen', $hapus);
+			
+			// Tambahkan pesan sukses (opsional)
+			$this->session->set_flashdata('success', 'Dokumen berhasil dihapus.');
+			
+			header('location:' . base_url() . 'admin/Dokumen/dokumen');
+		} else {
+			header('location:' . base_url() . 'web/log');
 		}
 	}
 
@@ -258,6 +272,19 @@ public function tambah_dokumen()
 					);
 					// var_dump($data);die();
 					$this->Dokumen_model->insertData('tb_dokumen', $data_dokumen);
+					$id_dokumen = $this->db->insert_id();
+
+					// Simpan data ke tabel relasi tb_dokumen_petugas
+					if (!empty($id_petugas_array)) {
+						foreach ($id_petugas_array as $id_petugas) {
+							$data_relasi = array(
+								'id_dokumen' => $id_dokumen,
+								'id_petugas' => $id_petugas
+							);
+							$this->Dokumen_model->insertData('tb_dokumen_petugas', $data_relasi);
+						}
+					}
+				
 					redirect('admin/Dokumen/dokumen');
 				} else {
 					$data['title'] = 'Tambah Dokumen';
@@ -377,7 +404,8 @@ public function check_file()
         } else {
             $dokumen_detail = $this->Dokumen_model->get_detaill('tb_dokumen', 'id_dokumen', $id_dokumen);
             $old_berkas = $dokumen_detail->berkas;
-
+			$id_petugas_array = $this->input->post('id_petugas');
+			$id_petugas_string = !empty($id_petugas_array) ? implode(',', $id_petugas_array) : '';
             $data_update = array(
                 'deskripsi' => $this->input->post('deskripsi'),
                 'juduldok' => $this->input->post('juduldok'),
@@ -388,7 +416,7 @@ public function check_file()
 				'id_sifat' => $this->input->post('sifat'),
                 'tgl' => $this->input->post('tgl'),
                 'no_dok' => $this->input->post('no_dok'),
-				'id_petugas' => $this->input->post('id_petugas'),
+				'id_petugas' => $id_petugas_string,
                 'ket' => $this->input->post('ket')
             );
 

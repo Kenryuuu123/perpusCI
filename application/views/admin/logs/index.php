@@ -1,6 +1,11 @@
 <!--css khusus halaman ini -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/dataTables.bootstrap.css">
+<!-- jQuery -->
+<script src="<?php echo base_url(); ?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
+<!-- DataTables JavaScript -->
+<script src="<?php echo base_url(); ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!--content -->
 <div class="box box-solid box-success">
   <div class="box-header with-border">
@@ -11,7 +16,7 @@
 
   <div class="box-body">
    <div class="form-group"></div>
-   <table id="table-logs" class="table table-striped table-bordered" cellspacing="0" width="100%">
+   <table id="table-dokumen" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead class="bg-success">
                   <tr>
                     <th>No</th>
@@ -55,17 +60,26 @@
 </div><!-- /.box -->
 
 <!-- DataTables -->
-<script src="<?php echo base_url(); ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#table-logs').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#table-dokumen').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "language": {
+                "search": "Cari:",
+                "lengthMenu": "Tampilkan _MENU_ entri",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                "paginate": {
+                    "first": "Pertama",
+                    "last": "Terakhir",
+                    "next": "Berikutnya",
+                    "previous": "Sebelumnya"
+                }
+            }
+        });
     });
-});
 </script>

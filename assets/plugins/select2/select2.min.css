@@ -218,7 +218,7 @@
   border-width: 0 4px 5px 4px;
 }
 .select2-container--default .select2-selection--multiple {
-  background-color: black;
+  background-color: white;
   border: 1px solid #aaa;
   border-radius: 4px;
   cursor: text;
@@ -257,7 +257,7 @@
 .select2-container--default
   .select2-selection--multiple
   .select2-selection__choice {
-  background-color: #ffffff;
+  background-color: #e4e4e4;
   border: 1px solid #aaa;
   border-radius: 4px;
   cursor: default;

@@ -178,8 +178,8 @@
           <div class="form-group">
               <label class="col-sm-2 control-label">Hak Akses Petugas</label>
               <div class="col-sm-5">
-		          <select  name="id_petugas" class="js-example-basic-single form-control" multiple="multiple" data-placeholder="Klik untuk memilih">
-		  				<option value="">&nbsp;</option>
+		          <select  name="id_petugas[]" class="js-example-basic-single form-control" multiple="multiple" data-placeholder="Klik untuk memilih">
+		  				<!-- <option value="">&nbsp;</option> -->
                 <?php foreach($data_id_petugas->result_array() as $op2)
                           {
                             ?>
@@ -196,6 +196,20 @@
                           }
                         ?>
 						  </select>
+                    <td>
+                    <?php
+                    if(!empty($op['id_petugas'])) {
+                        $petugas_array = explode(',', $op['id_petugas']);
+                        foreach($petugas_array as $id_pet) {
+                            $query = $this->db->get_where('tb_petugas', array('id_petugas' => $id_pet));
+                            if($query->num_rows() > 0) {
+                                $nama_petugas = $query->row();
+                                echo '<span class="label label-info" style="margin:2px;display:inline-block;background-color:#00bcd4;color:#000;">'.$nama_petugas->nama.'<span class="close-btn" style="margin-left:5px;cursor:pointer;">x</span></span> ';
+                            }
+                        }
+                    }
+                    ?>
+                </td>
 		      	  </div>
             </div>
 
@@ -222,10 +236,11 @@
 						  </select>
 		      	  </div>
             </div>
+
                           
           <div class="form-group">
             <label for="berkas">Unggah Dokumen</label>
-            <input type="file" name="berkas" id="berkas" class="form-control" accept="pdf,.doc,.docx,.jpg,.png,.mp4,.mkv">
+            <input type="file" name="berkas" id="berkas" class="form-control" accept=".pdf,.doc,.docx,.jpg,.png,.mp4,.mkv">
           </div>
         <div class ="col-sm-4">
           </div
@@ -249,3 +264,12 @@
     Update Data Dokumen, edit form diatas untuk mengubah data dokumen.
   </div>
 </div>
+
+<script>
+document.querySelectorAll('.close-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        let label = this.parentNode;
+        label.parentNode.removeChild(label);
+    });
+});
+</script>

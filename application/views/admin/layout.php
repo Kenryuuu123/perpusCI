@@ -158,7 +158,7 @@ desired effect
           </a>
           <ul class="treeview-menu">
             <li class="active"><a href="<?php echo base_url(); ?>admin/Anggota"><i class="fa fa-user"></i>Data Anggota</a></li>
-            <li><a href="<?php echo base_url(); ?>admin/Kelas"><i class="fa fa-building-o"></i>Data Kelas</a></li>
+            <!-- <li><a href="<?php echo base_url(); ?>admin/Kelas"><i class="fa fa-building-o"></i>Data Kelas</a></li> -->
              <li><a href="<?php echo base_url(); ?>admin/Agama"><i class="fa fa-moon-o"></i>Data Agama</a></li>
           </ul>
         </li>

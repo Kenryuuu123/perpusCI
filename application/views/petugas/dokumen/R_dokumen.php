@@ -2,31 +2,6 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables/dataTables.bootstrap.css">
 
 <?php var_dump($petugas);?>
-<!--modal dialog untuk hapus -->
-  <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Konfirmasi Hapus</h4>
-                </div>
-            
-                <div class="modal-body">
-                    <p>Anda akan menghapus Data Buku beserta detail stok buku ini</p>
-                    <p><strong>Peringatan</strong>  Setelah data dihapus, data tidak dapat dikembalikan!</p>
-                    <br />
-                    <p>Ingin melanjutkan menghapus?</p>
-                    <p class="debug-url"></p>
-                </div>
-                
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger btn-ok">Hapus</a>
-                </div>
-            </div>
-        </div>
-    </div>
 <!--content -->
 <div class="box box-solid box-success">
   <div class="box-header with-border">
