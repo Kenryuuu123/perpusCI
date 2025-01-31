@@ -226,7 +226,7 @@ desired effect
          <li class="header">PETUGAS/OPERATOR</li>
         <li><a href="<?php echo base_url();?>admin/Petugas"><i class="fa fa-user-plus"></i> <span>Petugas</span></a></li>
         <li class = "header">Logs/Aktivitas User</li>
-        <li><a href="<?php echo base_url();?>admin/Logs"><i class="fa fa-user"></i> <span> Logs</span></a></li>
+        <li><a href="<?php echo base_url();?>admin/Logs"><i class="fa fa-history"></i> <span> Logs</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
